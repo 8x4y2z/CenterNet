@@ -20,8 +20,10 @@ class COCO(data.Dataset):
 
   def __init__(self, opt, split):
     super(COCO, self).__init__()
-    self.data_dir = os.path.join(opt.data_dir, 'coco')
-    self.img_dir = os.path.join(self.data_dir, '{}2017'.format(split))
+    # self.data_dir = os.path.join(opt.data_dir, 'coco')
+    self.data_dir = "/home/pupil/Documents/upgrad/msc/datasets/coco/"
+    # self.img_dir = os.path.join(self.data_dir, '{}2017'.format(split))
+    self.img_dir = self.data_dir+f"{split}2014"
     if split == 'test':
       self.annot_path = os.path.join(
           self.data_dir, 'annotations', 
@@ -34,7 +36,7 @@ class COCO(data.Dataset):
       else:
         self.annot_path = os.path.join(
           self.data_dir, 'annotations', 
-          'instances_{}2017.json').format(split)
+          'instances_{}2014.json').format(split)
     self.max_objs = 128
     self.class_name = [
       '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',

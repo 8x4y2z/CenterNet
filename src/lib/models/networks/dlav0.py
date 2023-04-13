@@ -645,3 +645,16 @@ def get_pose_net(num_layers, heads, head_conv=256, down_ratio=4):
                  down_ratio=down_ratio,
                  head_conv=head_conv)
   return model
+
+if __name__ == '__main__':
+    from fvcore.nn import FlopCountAnalysis
+    from fvcore.nn import flop_count_table
+
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    inp = torch.randn(1,3,32,32).to(device)
+    model = get_pose_net(34,{"hm":9,"wh":2})
+    model=model.to(device)
+    model.eval()
+
+    flops = FlopCountAnalysis(model,inp)
+    print(flop_count_table(flops))
